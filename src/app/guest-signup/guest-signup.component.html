@@ -1,0 +1,56 @@
+<div class="content">
+  <form  fxLayout="column" (ngSubmit)="onSubmit(form)" #form="ngForm" >
+    <mat-form-field>
+      <input matInput
+           id="name"
+           type="text"
+           [(ngModel)]="name"
+           name="name"
+           required
+           placeholder="Full Name"
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+           type="number"
+           id="id"
+           [(ngModel)]="id"
+           name="id"
+
+           required
+           placeholder="ID Number"
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput
+           type="number"
+           id="phoneno"
+           [(ngModel)]="phoneno"
+           name="phoneno"
+           required
+           placeholder="Phone Number"
+      >
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      [disabled] ="form.invalid"
+      color="accent"
+      type="submit">Generate QR code</button>
+
+  </form>
+</div>
+
+<mat-card  class="content" *ngIf="submitted">
+  <div class="content">
+    <qr-code id ="canvas" [value] = "'Name: '+ name + '\nID: ' + id.toString()" size="300" errorCorrectionLevel="H" type='jpeg'>
+
+  </qr-code>
+  </div>
+  <div fxLayout="row">
+  <button mat-button (click)="onDownload()">Download QR Code
+   </button>
+    <button mat-button (click)="sendToATAPI()">Send to Visitor</button>
+    </div>
+<a id="link"></a>
+  </mat-card>
