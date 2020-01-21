@@ -1,4 +1,5 @@
 export class Guest {
+  id?: string;
   fullname: string;
   gender: ['male', 'female'];
   idnumber: number;

@@ -50,4 +50,16 @@ app.post("/signup", (req, res, next) => {
   });
 });
 
+app.get("/all-guests", (req,res,next) => {
+  Guest.find()
+    .then(documents => {
+      console.log(documents);
+      res.status(200).json({
+        message: 'Guests fetched successfully',
+        guests: documents
+      });
+    });
+
+})
+
 module.exports = app;

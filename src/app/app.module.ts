@@ -11,7 +11,7 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule, MatListModule, MatPaginatorModule, MatSelectModule,
-  MatSidenavModule, MatTableModule,
+  MatSidenavModule, MatSortModule, MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 import {QrCodeModule} from 'ng-qrcode';
@@ -85,7 +85,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
     MatListModule,
     MatPaginatorModule,
     MatTableModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]
