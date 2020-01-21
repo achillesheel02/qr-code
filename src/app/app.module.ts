@@ -10,7 +10,7 @@ import {
   MatCardModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule, MatListModule, MatPaginatorModule,
+  MatInputModule, MatListModule, MatPaginatorModule, MatSelectModule,
   MatSidenavModule, MatTableModule,
   MatToolbarModule
 } from '@angular/material';
@@ -38,6 +38,7 @@ import { PersonnelEditComponent } from './personnel-edit/personnel-edit.componen
 import { VisitsEditComponent } from './visits-edit/visits-edit.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardModule } from './dashboard/dashboard.module';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -82,7 +84,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     DashboardModule,
     MatListModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

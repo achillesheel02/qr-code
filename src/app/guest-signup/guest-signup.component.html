@@ -2,37 +2,52 @@
   <form  fxLayout="column" (ngSubmit)="onSubmit(form)" #form="ngForm" >
     <mat-form-field>
       <input matInput
-           id="name"
+           id="fullname"
            type="text"
-           [(ngModel)]="name"
-           name="name"
+           [(ngModel)]="fullname"
+           name="fullname"
            required
            placeholder="Full Name"
       >
     </mat-form-field>
     <mat-form-field>
+      <mat-label>Gender</mat-label>
+      <mat-select [(ngModel)]="gender" name="gender" required>
+        <mat-option *ngFor="let sex of sexes" [value]="sex">
+          {{sex}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
       <input matInput
            type="number"
-           id="id"
-           [(ngModel)]="id"
-           name="id"
-
+           [(ngModel)]="idnumber"
+           name="idnumber"
            required
            placeholder="ID Number"
       >
     </mat-form-field>
     <mat-form-field>
       <input matInput
-           type="number"
+           type="string"
            id="phoneno"
            [(ngModel)]="phoneno"
            name="phoneno"
            required
-           placeholder="Phone Number"
-      >
+           placeholder="Phone Number">
+    </mat-form-field>
+      <mat-form-field>
+        <input matInput
+               type="email"
+               email
+               [(ngModel)]="email"
+               name="email"
+               required
+               placeholder="Email"
+        >
     </mat-form-field>
 
-    <button
+    <button *ngIf="!submitted"
       mat-raised-button
       [disabled] ="form.invalid"
       color="accent"
@@ -41,9 +56,9 @@
   </form>
 </div>
 
-<mat-card  class="content" *ngIf="submitted">
+<mat-card  class="content" style="display: flex;" *ngIf="submitted">
   <div class="content">
-    <qr-code id ="canvas" [value] = "'Name: '+ name + '\nID: ' + id.toString()" size="300" errorCorrectionLevel="H" type='jpeg'>
+    <qr-code id ="canvas" [value] = "'Name: '+ fullname + '\nID: ' + idnumber.toString()" size="300" errorCorrectionLevel="H" type='jpeg'>
 
   </qr-code>
   </div>
@@ -51,6 +66,7 @@
   <button mat-button (click)="onDownload()">Download QR Code
    </button>
     <button mat-button (click)="sendToATAPI()">Send to Visitor</button>
+    <button mat-button color='primary' (click)="saveGuest()">Save Guest</button>
     </div>
 <a id="link"></a>
   </mat-card>

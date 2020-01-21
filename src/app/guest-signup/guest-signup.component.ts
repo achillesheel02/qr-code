@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
-//import {sendMessage} from 'src/assets/send_message.js'
+import {Guest} from './guest';
+import {GuestService} from './guest.service';
+
 
 /*declare var fs: any;*/
 @Component({
@@ -10,36 +12,43 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./guest-signup.component.css']
 })
 export class GuestSignupComponent implements OnInit {
+  guest: Guest;
+  sexes = ['male', 'female'];
 
-  constructor() { }
+  constructor(private guestService: GuestService) { }
   submitted = false;
-  canvas: any
-  imageurl: any;
-  link: any;
-  id: string;
-  name: string;
-  phoneno: number;
-  namesave = '';
-
 
   onSubmit(form: NgForm) {
-    this.id = form.value.id.toString();
-    this.name = form.value.name;
-    this.phoneno = form.value.phoneno;
+    console.log(form.value.gender);
     this.submitted = true;
-
+    this.guest = {
+      idnumber: form.value.idnumber,
+      phoneno : form.value.phoneno,
+      email : form.value.email,
+      fullname : form.value.fullname,
+      gender: form.value.gender
+    };
   }
 
-  onDownload(){
-    this.canvas = document.getElementsByTagName('qr-code')[0].getElementsByTagName("canvas")[0];
-    this.imageurl = this.canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-    this.link = document.getElementById('link');
-    this.link.setAttribute('download', this.namesave.concat(this.name, this.id, '.jpg'));
-    this.link.setAttribute('href', this.imageurl);
-    this.link.click();
-    console.log(this.imageurl);
+  private getBarcodeURL() {
+    const canvas = document.getElementsByTagName('qr-code')[0].getElementsByTagName('canvas')[0];
+    return canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
+  }
+
+  onDownload() {
+    const imageurl = this.getBarcodeURL();
+    const link = document.getElementById('link');
+    const namesave = '';
+    link.setAttribute('download', namesave.concat(this.guest.fullname, this.guest.idnumber.toString(), '.jpg'));
+    link.setAttribute('href', imageurl);
+    link.click();
+    console.log(imageurl);
 
 }
+  saveGuest(){
+    this.guest.barcode=this.getBarcodeURL();
+    this.guestService.addGuest(this.guest);
+  }
   /*sendToATAPI(){
     const no = this.phoneno.toString();
     const ext = '+254';
@@ -49,6 +58,8 @@ export class GuestSignupComponent implements OnInit {
 
   }
 */
+
+
   ngOnInit() {
   }
 
